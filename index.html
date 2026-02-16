@@ -22,7 +22,6 @@
             overflow-x: hidden;
         }
 
-        /* 滚动条细线（可选） */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -34,31 +33,23 @@
             border-radius: 8px;
         }
 
-        /* 主要容器 */
         .container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 2rem 2rem 4rem;
         }
 
-        /* ---------- 液态玻璃效果通用类 ---------- */
+        /* 玻璃卡片通用效果 */
         .glass-card {
             background: rgba(20, 20, 30, 0.5);
             backdrop-filter: blur(16px) saturate(180%);
             -webkit-backdrop-filter: blur(16px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
             transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
         }
 
-        .glass-card:hover {
-            border-color: rgba(180, 130, 255, 0.5);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px rgba(150, 0, 255, 0.4);
-            transform: translateY(-4px);
-        }
-
-        /* 霓虹紫呼吸灯动画 (用于边框或阴影) */
+        /* 霓虹紫呼吸灯动画 */
         @keyframes neon-pulse {
             0% { border-color: rgba(160, 100, 255, 0.3); box-shadow: 0 0 15px rgba(160, 100, 255, 0.2); }
             50% { border-color: rgba(200, 130, 255, 0.8); box-shadow: 0 0 30px rgba(180, 0, 255, 0.6); }
@@ -69,7 +60,7 @@
             animation: neon-pulse 4s infinite ease-in-out;
         }
 
-        /* ---------- 视差背景层 ---------- */
+        /* 视差背景 */
         .parallax-bg {
             position: fixed;
             top: 0;
@@ -78,9 +69,7 @@
             height: 120vh;
             background: radial-gradient(circle at 30% 30%, #1a1035, #000000 70%);
             z-index: -2;
-            will-change: transform;
         }
-
         .parallax-stars {
             position: fixed;
             top: 0;
@@ -91,16 +80,44 @@
             background-repeat: repeat;
             opacity: 0.3;
             z-index: -1;
-            will-change: transform;
         }
 
-        /* ---------- 头部 ---------- */
+        /* ---------- 头部区域（预留照片位置） ---------- */
         .hero {
-            min-height: 70vh;
+            min-height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 4rem 0 2rem;
+            position: relative;
+        }
+
+        /* 照片预留区 - 圆形占位 */
+        .photo-placeholder {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(180,130,255,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            overflow: hidden; /* 保证图片裁切为圆形 */
+            box-shadow: 0 0 30px rgba(180,130,255,0.3);
+        }
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 保证图片铺满不变形 */
+            display: block;
+        }
+        /* 若无图片，显示占位图标 */
+        .photo-placeholder .placeholder-icon {
+            font-size: 3rem;
+            color: #b280ff;
+            opacity: 0.6;
         }
 
         .hero-greeting {
@@ -110,7 +127,6 @@
             color: #a0a0b0;
             margin-bottom: 0.5rem;
         }
-
         .hero-name {
             font-size: clamp(3rem, 12vw, 6rem);
             font-weight: 700;
@@ -120,7 +136,6 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
         }
-
         .hero-tagline {
             font-size: 1.6rem;
             font-weight: 350;
@@ -128,13 +143,11 @@
             max-width: 800px;
             margin-bottom: 2rem;
         }
-
         .hero-stats {
             display: flex;
             gap: 3rem;
             flex-wrap: wrap;
         }
-
         .stat-badge {
             font-size: 1.4rem;
             font-weight: 500;
@@ -145,7 +158,7 @@
             border: 1px solid rgba(180,130,255,0.2);
         }
 
-        /* ---------- 章节标题 ---------- */
+        /* 章节标题 */
         .section-title {
             font-size: 2.4rem;
             font-weight: 600;
@@ -160,18 +173,16 @@
             font-size: 2rem;
         }
 
-        /* ---------- 便当盒卡片网格 (工作经验/项目) ---------- */
+        /* 便当盒卡片网格 (项目经历) */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.8rem;
             margin: 2rem 0;
         }
-
         .bento-card {
             background: rgba(18, 18, 26, 0.6);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 36px;
             padding: 2rem 1.8rem 1.8rem;
@@ -180,25 +191,21 @@
             display: flex;
             flex-direction: column;
         }
-
         .bento-card:hover {
             border-color: #b266ff;
             box-shadow: 0 30px 40px -10px #6a1f9a, 0 0 30px #8a2be230;
             transform: scale(1.02) translateY(-6px);
         }
-
         .card-icon {
             font-size: 2.4rem;
             color: #b280ff;
             margin-bottom: 1.2rem;
         }
-
         .card-title {
             font-size: 1.8rem;
             font-weight: 600;
             margin-bottom: 0.6rem;
         }
-
         .card-sub {
             font-size: 1rem;
             font-weight: 400;
@@ -207,13 +214,11 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
         .card-desc {
             color: #cfcfdf;
             margin-bottom: 1.4rem;
             flex: 1;
         }
-
         .card-stats {
             display: flex;
             flex-wrap: wrap;
@@ -222,7 +227,6 @@
             border-top: 1px solid rgba(255,255,255,0.1);
             padding-top: 1.2rem;
         }
-
         .stat {
             flex: 1;
             text-align: center;
@@ -238,9 +242,7 @@
             color: #88889c;
         }
 
-        /* 双列特殊卡片 (可占两列) 此处不需要 */
-
-        /* ---------- 学历背景 ---------- */
+        /* 学历卡片 */
         .edu-card {
             background: rgba(18, 18, 26, 0.7);
             backdrop-filter: blur(16px);
@@ -253,7 +255,6 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .edu-left h3 {
             font-size: 2rem;
             font-weight: 500;
@@ -274,19 +275,25 @@
             font-weight: 600;
             color: #d0b0ff;
         }
-
         .intern {
             margin-top: 1rem;
             font-size: 1.1rem;
             color: #b0b0c8;
         }
 
-        /* ---------- 个人能力标签 ---------- */
-        .skills-panel {
+        /* ---------- 技能标签区域 (悬停显示详情) ---------- */
+        .skills-wrapper {
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
             margin: 3rem 0;
+            position: relative;
+        }
+
+        /* 每个技能项作为一个相对定位容器 */
+        .skill-item {
+            position: relative;
+            display: inline-block;
         }
 
         .skill-tag {
@@ -299,6 +306,8 @@
             font-weight: 500;
             transition: 0.2s;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            cursor: default;
+            white-space: nowrap; /* 防止标签换行 */
         }
 
         .skill-tag:hover {
@@ -313,7 +322,74 @@
             color: #b280ff;
         }
 
-        /* ---------- 联系区 ---------- */
+        /* 详情卡片 - 默认隐藏 */
+        .skill-detail {
+            display: none;
+            position: absolute;
+            top: calc(100% + 15px); /* 显示在标签下方 */
+            left: 0;
+            width: 300px; /* 固定宽度，可根据内容调整 */
+            background: rgba(10, 10, 18, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid #b280ff;
+            border-radius: 24px;
+            padding: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px #b280ff;
+            color: #e0e0f0;
+            pointer-events: none; /* 防止鼠标移到卡片上时消失，但因为我们hover在skill-item上，卡片内无法互动也没关系 */
+        }
+
+        /* 当鼠标悬停在skill-item上时，显示详情卡片 */
+        .skill-item:hover .skill-detail {
+            display: block;
+        }
+
+        /* 详情卡片中的图片占位 */
+        .detail-img {
+            width: 100%;
+            height: 140px;
+            background: #1e1e2a;
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #b280ff;
+            color: #b280ff;
+            font-size: 0.9rem;
+            overflow: hidden;
+        }
+        .detail-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .detail-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #c0c0e0;
+        }
+        .detail-text p {
+            margin-bottom: 0.5rem;
+        }
+        .detail-text ul {
+            padding-left: 1.2rem;
+            margin-top: 0.3rem;
+        }
+        .detail-text li {
+            margin-bottom: 0.2rem;
+        }
+
+        /* 为了适应移动端，可以调整卡片位置 */
+        @media (max-width: 700px) {
+            .skill-detail {
+                width: 260px;
+                left: -50px; /* 稍微左移避免超出屏幕 */
+            }
+        }
+
+        /* 联系区 */
         .contact {
             margin-top: 5rem;
             padding: 2rem 0;
@@ -323,7 +399,6 @@
             align-items: center;
             flex-wrap: wrap;
         }
-
         .contact-links a {
             color: #c0c0e0;
             font-size: 2rem;
@@ -333,21 +408,29 @@
         .contact-links a:hover {
             color: #b280ff;
         }
-
-        /* 视差滚动用到的偏移量 (JS控制) */
-        .parallax-shift {
-            transition: transform 0.1s ease-out;
-        }
     </style>
 </head>
 <body>
-    <!-- 视差背景层 -->
-    <div class="parallax-bg" id="parallaxBg"></div>
-    <div class="parallax-stars" id="parallaxStars"></div>
+    <!-- 视差背景 -->
+    <div class="parallax-bg"></div>
+    <div class="parallax-stars"></div>
 
     <main class="container">
-        <!-- Hero 区域 -->
+        <!-- Hero 区域（预留照片位置） -->
         <section class="hero">
+            <!-- 照片占位：使用方法见下方注释 -->
+            <div class="photo-placeholder">
+                <!-- 
+                    替换照片方法：
+                    1. 在 index.html 同级目录下新建一个文件夹，命名为 images
+                    2. 将你的照片放入 images 文件夹，例如 photo.jpg
+                    3. 将下面 img 标签的 src 改为 "images/photo.jpg"
+                    4. 删除 placeholder-icon 那一行（或注释掉）
+                -->
+                <!-- 示例：<img src="images/photo.jpg" alt="个人照片"> -->
+                <!-- 如果暂时没有照片，保留下面这行显示图标 -->
+                <div class="placeholder-icon"><i class="fas fa-user-circle"></i></div>
+            </div>
             <div class="hero-greeting">👋 HI, I'M</div>
             <h1 class="hero-name">沈钰祺</h1>
             <div class="hero-tagline">内容运营 · 数据驱动 · 社群激活</div>
@@ -358,47 +441,41 @@
             </div>
         </section>
 
-        <!-- 工作经验 / 项目经历 (便当盒卡片) -->
+        <!-- 项目经历 (便当盒卡片) 部分保持不变，略，但保留原有内容 -->
         <div class="section-title">
             <i class="fas fa-briefcase"></i> 核心项目 · 工作经验
         </div>
         <div class="bento-grid">
-            <!-- 卡片 1: TechoMedia -->
+            <!-- TechoMedia 卡片 -->
             <div class="bento-card">
                 <div class="card-icon"><i class="fas fa-newspaper"></i></div>
                 <div class="card-title">TechoMedia 科技社</div>
                 <div class="card-sub">副社长 · 内容策划</div>
-                <div class="card-desc">
-                    主导“Techofield”专栏，策划AI系列，阅读量达常规10倍，打造标杆产品。负责团队排期与终审，建立体系化内容流程。
-                </div>
+                <div class="card-desc">领导“Techofield”专栏，策划AI系列，阅读量达常规10倍，打造标杆产品。负责团队排期与终审，建立体系化内容流程。</div>
                 <div class="card-stats">
                     <div class="stat"><span class="stat-number">10x</span><div class="stat-label">阅读提升</div></div>
                     <div class="stat"><span class="stat-number">900%+</span><div class="stat-label">增幅</div></div>
                     <div class="stat"><span class="stat-number">标杆</span><div class="stat-label">社团核心</div></div>
                 </div>
             </div>
-            <!-- 卡片 2: 粉丝社群与个站 -->
+            <!-- 粉丝个站卡片 -->
             <div class="bento-card">
                 <div class="card-icon"><i class="fas fa-heart"></i></div>
                 <div class="card-title">粉丝个站 & 超话</div>
                 <div class="card-sub">核心文案 · 超话副主持</div>
-                <div class="card-desc">
-                    建立“晚安博”等栏目，均阅3-5w；独立撰写超话规则，获66.1w阅读并置顶；策划号召帖均阅6w+，评论600+，有效提升粉丝参与度。
-                </div>
+                <div class="card-desc">建立“晚安博”等栏目，均阅3-5w；独立撰写超话规则，获66.1w阅读并置顶；策划号召帖均阅6w+，评论600+，有效提升粉丝参与度。</div>
                 <div class="card-stats">
                     <div class="stat"><span class="stat-number">66.1w</span><div class="stat-label">规则阅读</div></div>
                     <div class="stat"><span class="stat-number">3-5w</span><div class="stat-label">晚安博均阅</div></div>
                     <div class="stat"><span class="stat-number">600+</span><div class="stat-label">号召帖评论</div></div>
                 </div>
             </div>
-            <!-- 卡片 3: 自媒体运营 -->
+            <!-- 自媒体卡片 -->
             <div class="bento-card">
                 <div class="card-icon"><i class="fas fa-video"></i></div>
                 <div class="card-title">小红书/B站 自媒体</div>
                 <div class="card-sub">独立创作者 · 双平台</div>
-                <div class="card-desc">
-                    热点24h出图+深度二创：《庆余年2》互动775+，阅读近万；B站最高3w+。账号观看/互动超92%/95%同类创作者。
-                </div>
+                <div class="card-desc">热点24h出图+深度二创：《庆余年2》互动775+，阅读近万；B站最高3w+。账号观看/互动超92%/95%同类创作者。</div>
                 <div class="card-stats">
                     <div class="stat"><span class="stat-number">92%</span><div class="stat-label">观看超同类</div></div>
                     <div class="stat"><span class="stat-number">95%</span><div class="stat-label">互动超同类</div></div>
@@ -407,18 +484,16 @@
             </div>
         </div>
 
-        <!-- 学历背景 + 实习 -->
+        <!-- 学历背景 -->
         <div class="section-title">
             <i class="fas fa-graduation-cap"></i> 学历 & 研究经历
         </div>
         <div class="edu-card glass-card neon-border">
             <div class="edu-left">
-                <h3>圣路易斯华盛顿大学 · 生物/生物化学方向</h3>
+                <h3>圣路易斯华盛顿大学·生物/生物化学方向</h3>
                 <div class="meta">2024年9月 – 今</div>
                 <div style="margin-top:1rem; color:#b0b0d0;">主修：分子生物学、微积分、化学、日语</div>
-                <div class="intern" style="margin-top:1.5rem;">
-                    <i class="fas fa-flask" style="color:#b280ff;"></i> 中科院分子植物科学卓越创新中心实习 (2023) · MATLAB数据分析
-                </div>
+                <div class="intern"><i class="fas fa-flask" style="color:#b280ff;"></i> 中科院分子植物科学卓越创新中心实习 (2023) · MATLAB数据分析</div>
             </div>
             <div class="edu-right">
                 <span class="gpa">GPA 3.88</span>
@@ -426,20 +501,110 @@
             </div>
         </div>
 
-        <!-- 个人能力 (技能标签) -->
+        <!-- 个人能力（技能标签 + 悬停详情卡片） -->
         <div class="section-title">
             <i class="fas fa-cog"></i> 核心能力
         </div>
-        <div class="skills-panel">
-            <span class="skill-tag"><i class="fas fa-pen-fancy"></i> 内容策划/二创</span>
-            <span class="skill-tag"><i class="fas fa-users-cog"></i> 社群运营/规则建设</span>
-            <span class="skill-tag"><i class="fas fa-code"></i> MATLAB 数据分析</span>
-            <span class="skill-tag"><i class="fas fa-video"></i> 剪映/Canva/排版</span>
-            <span class="skill-tag"><i class="fas fa-language"></i> 日语基础</span>
-            <span class="skill-tag"><i class="fas fa-file-excel"></i> Office办公软件</span>
+        <div class="skills-wrapper">
+            <!-- 技能1：内容策划/二创 -->
+            <div class="skill-item">
+                <span class="skill-tag"><i class="fas fa-pen-fancy"></i> 内容策划/二创</span>
+                <div class="skill-detail">
+                    <!-- 图片占位：使用方法同照片，放入 images/ 下，修改 src -->
+                    <div class="detail-img">
+                        <!-- <img src="images/skill1.jpg" alt="内容策划示例"> -->
+                        <span style="opacity:0.5;">[图片占位]</span>
+                    </div>
+                    <div class="detail-text">
+                        <!-- 这里填写详细描述，支持多行文字和列表 -->
+                        <p><strong>详细描述：</strong>你可以在这一块自由扩充，例如：</p>
+                        <ul>
+                            <li>策划过xx系列内容，累计阅读xx</li>
+                            <li>擅长从热点中提炼选题</li>
+                            <li>二创视频最高互动xxx</li>
+                        </ul>
+                        <p>更多文字内容……</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技能2：社群运营/规则建设 -->
+            <div class="skill-item">
+                <span class="skill-tag"><i class="fas fa-users-cog"></i> 社群运营/规则建设</span>
+                <div class="skill-detail">
+                    <div class="detail-img">
+                        <!-- <img src="images/skill2.jpg" alt="社群运营示例"> -->
+                        <span style="opacity:0.5;">[图片占位]</span>
+                    </div>
+                    <div class="detail-text">
+                        <p><strong>详细描述：</strong>例如：</p>
+                        <ul>
+                            <li>独立撰写超话规则，阅读66w+</li>
+                            <li>建立晚安博栏目，培养用户习惯</li>
+                            <li>通过数据分析提升社群活跃度30%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技能3：MATLAB数据分析 -->
+            <div class="skill-item">
+                <span class="skill-tag"><i class="fas fa-code"></i> MATLAB 数据分析</span>
+                <div class="skill-detail">
+                    <div class="detail-img">
+                        <!-- <img src="images/skill3.jpg" alt="MATLAB示例"> -->
+                        <span style="opacity:0.5;">[图片占位]</span>
+                    </div>
+                    <div class="detail-text">
+                        <p><strong>详细描述：</strong>科研中负责根系数据建模，使用MATLAB/GRANAR分析，处理xxx组数据，产出图表用于学术汇报。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技能4：剪映/Canva/排版 -->
+            <div class="skill-item">
+                <span class="skill-tag"><i class="fas fa-video"></i> 剪映/Canva/排版</span>
+                <div class="skill-detail">
+                    <div class="detail-img">
+                        <!-- <img src="images/skill4.jpg" alt="设计示例"> -->
+                        <span style="opacity:0.5;">[图片占位]</span>
+                    </div>
+                    <div class="detail-text">
+                        <p><strong>详细描述：</strong>熟练使用剪映剪辑二创视频，Canva制作海报/封面，公众号排版（秀米/135），产出内容平均阅读3w+。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技能5：日语基础 -->
+            <div class="skill-item">
+                <span class="skill-tag"><i class="fas fa-language"></i> 日语基础</span>
+                <div class="skill-detail">
+                    <div class="detail-img">
+                        <!-- <img src="images/skill5.jpg" alt="日语学习"> -->
+                        <span style="opacity:0.5;">[图片占位]</span>
+                    </div>
+                    <div class="detail-text">
+                        <p><strong>详细描述：</strong>大学日语课程成绩A，具备基础读写能力，能够理解日语内容，辅助跨文化内容运营。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技能6：Office办公软件 -->
+            <div class="skill-item">
+                <span class="skill-tag"><i class="fas fa-file-excel"></i> Office办公软件</span>
+                <div class="skill-detail">
+                    <div class="detail-img">
+                        <!-- <img src="images/skill6.jpg" alt="Office示例"> -->
+                        <span style="opacity:0.5;">[图片占位]</span>
+                    </div>
+                    <div class="detail-text">
+                        <p><strong>详细描述：</strong>Excel数据分析（数据透视表、函数），PPT制作汇报，Word文档排版，常用于项目复盘与报告撰写。</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- 简短个人总结 (符合个人能力段落) -->
+        <!-- 个人总结 -->
         <div class="glass-card" style="padding: 2rem; margin: 3rem 0; border-radius: 36px;">
             <i class="fas fa-quote-left" style="color:#b280ff; font-size:2rem; opacity:0.6;"></i>
             <p style="font-size:1.3rem; max-width:900px; margin-top:1rem;">
@@ -447,7 +612,7 @@
             </p>
         </div>
 
-        <!-- 联系+作品链接 -->
+        <!-- 联系区 -->
         <div class="contact">
             <div style="font-size:1.2rem; color:#a0a0c0;">📬 更多案例可联系</div>
             <div class="contact-links">
@@ -464,38 +629,12 @@
     </main>
 
     <script>
-        (function() {
-            // 简单的视差滚动效果：背景和星星缓慢移动
-            const bg = document.getElementById('parallaxBg');
-            const stars = document.getElementById('parallaxStars');
-            let lastScrollY = window.scrollY;
-
-            function updateParallax() {
-                const scrolled = window.scrollY;
-                // 背景移动速度慢一些
-                if (bg) {
-                    bg.style.transform = `translateY(${scrolled * 0.3}px)`;
-                }
-                if (stars) {
-                    stars.style.transform = `translateY(${scrolled * 0.5}px)`;
-                }
-                requestAnimationFrame(updateParallax);
-            }
-            // 使用requestAnimationFrame优化性能
-            window.addEventListener('scroll', () => {
-                const scrolled = window.scrollY;
-                if (bg) bg.style.transform = `translateY(${scrolled * 0.2}px)`;
-                if (stars) stars.style.transform = `translateY(${scrolled * 0.35}px)`;
-            }, { passive: true });
-
-            // 可选：卡片hover时轻微呼吸灯强化 (但已经在CSS里用animation)
-        })();
+        // 简单的视差滚动
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            document.querySelector('.parallax-bg').style.transform = `translateY(${scrolled * 0.2}px)`;
+            document.querySelector('.parallax-stars').style.transform = `translateY(${scrolled * 0.35}px)`;
+        }, { passive: true });
     </script>
-
-    <!-- 确保所有图标显示正常，如果小红书图标显示为字母，可以保留 -->
-    <style>
-        /* 调整图标间距 */
-        .fa-xiaohongshu:before { content: "📕"; font-family: 'Apple Color Emoji', sans-serif; }
-    </style>
 </body>
 </html>
