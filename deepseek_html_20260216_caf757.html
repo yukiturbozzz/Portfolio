@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>陈小欣 · 内容运营作品集</title>
+    <!-- Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ---------- 全局重置 & 深色主题 ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            color: #f5f5f7;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* 滚动条细线（可选） */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a3a3a;
+            border-radius: 8px;
+        }
+
+        /* 主要容器 */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        /* ---------- 液态玻璃效果通用类 ---------- */
+        .glass-card {
+            background: rgba(20, 20, 30, 0.5);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(180, 130, 255, 0.5);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px rgba(150, 0, 255, 0.4);
+            transform: translateY(-4px);
+        }
+
+        /* 霓虹紫呼吸灯动画 (用于边框或阴影) */
+        @keyframes neon-pulse {
+            0% { border-color: rgba(160, 100, 255, 0.3); box-shadow: 0 0 15px rgba(160, 100, 255, 0.2); }
+            50% { border-color: rgba(200, 130, 255, 0.8); box-shadow: 0 0 30px rgba(180, 0, 255, 0.6); }
+            100% { border-color: rgba(160, 100, 255, 0.3); box-shadow: 0 0 15px rgba(160, 100, 255, 0.2); }
+        }
+
+        .neon-border {
+            animation: neon-pulse 4s infinite ease-in-out;
+        }
+
+        /* ---------- 视差背景层 ---------- */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120vh;
+            background: radial-gradient(circle at 30% 30%, #1a1035, #000000 70%);
+            z-index: -2;
+            will-change: transform;
+        }
+
+        .parallax-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120vh;
+            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="4" r="0.8" fill="rgba(255,255,255,0.3)"/><circle cx="15" cy="8" r="0.6" fill="rgba(255,255,255,0.4)"/><circle cx="8" cy="18" r="0.5" fill="rgba(255,255,255,0.2)"/><circle cx="19" cy="15" r="0.7" fill="rgba(255,255,255,0.25)"/></svg>');
+            background-repeat: repeat;
+            opacity: 0.3;
+            z-index: -1;
+            will-change: transform;
+        }
+
+        /* ---------- 头部 ---------- */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 0 2rem;
+        }
+
+        .hero-greeting {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: #a0a0b0;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-name {
+            font-size: clamp(3rem, 12vw, 6rem);
+            font-weight: 700;
+            line-height: 1.05;
+            background: linear-gradient(145deg, #ffffff, #c0b0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .hero-tagline {
+            font-size: 1.6rem;
+            font-weight: 350;
+            color: #d0d0e0;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            font-size: 1.4rem;
+            font-weight: 500;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            border: 1px solid rgba(180,130,255,0.2);
+        }
+
+        /* ---------- 章节标题 ---------- */
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 600;
+            margin: 4rem 0 2rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-title i {
+            color: #b280ff;
+            font-size: 2rem;
+        }
+
+        /* ---------- 便当盒卡片网格 (工作经验/项目) ---------- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0;
+        }
+
+        .bento-card {
+            background: rgba(18, 18, 26, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 36px;
+            padding: 2rem 1.8rem 1.8rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bento-card:hover {
+            border-color: #b266ff;
+            box-shadow: 0 30px 40px -10px #6a1f9a, 0 0 30px #8a2be230;
+            transform: scale(1.02) translateY(-6px);
+        }
+
+        .card-icon {
+            font-size: 2.4rem;
+            color: #b280ff;
+            margin-bottom: 1.2rem;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .card-sub {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #a8a8c0;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-desc {
+            color: #cfcfdf;
+            margin-bottom: 1.4rem;
+            flex: 1;
+        }
+
+        .card-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.2rem;
+        }
+
+        .stat {
+            flex: 1;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #e0d0ff;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #88889c;
+        }
+
+        /* 双列特殊卡片 (可占两列) 此处不需要 */
+
+        /* ---------- 学历背景 ---------- */
+        .edu-card {
+            background: rgba(18, 18, 26, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 36px;
+            padding: 2rem 2.4rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin: 2rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .edu-left h3 {
+            font-size: 2rem;
+            font-weight: 500;
+        }
+        .edu-left .meta {
+            color: #b280ff;
+            font-size: 1.2rem;
+            margin-top: 0.3rem;
+        }
+        .edu-right {
+            background: rgba(0,0,0,0.4);
+            border-radius: 60px;
+            padding: 1rem 2rem;
+            border: 1px solid #b280ff40;
+        }
+        .gpa {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #d0b0ff;
+        }
+
+        .intern {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: #b0b0c8;
+        }
+
+        /* ---------- 个人能力标签 ---------- */
+        .skills-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+
+        .skill-tag {
+            background: rgba(30, 20, 40, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(180, 130, 255, 0.3);
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .skill-tag:hover {
+            border-color: #b280ff;
+            background: rgba(50, 30, 70, 0.8);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #b280ff;
+        }
+
+        .skill-tag i {
+            margin-right: 0.6rem;
+            color: #b280ff;
+        }
+
+        /* ---------- 联系区 ---------- */
+        .contact {
+            margin-top: 5rem;
+            padding: 2rem 0;
+            border-top: 1px solid #282836;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: #c0c0e0;
+            font-size: 2rem;
+            margin-left: 2rem;
+            transition: color 0.2s;
+        }
+        .contact-links a:hover {
+            color: #b280ff;
+        }
+
+        /* 视差滚动用到的偏移量 (JS控制) */
+        .parallax-shift {
+            transition: transform 0.1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- 视差背景层 -->
+    <div class="parallax-bg" id="parallaxBg"></div>
+    <div class="parallax-stars" id="parallaxStars"></div>
+
+    <main class="container">
+        <!-- Hero 区域 -->
+        <section class="hero">
+            <div class="hero-greeting">👋 HI, I'M</div>
+            <h1 class="hero-name">陈小欣</h1>
+            <div class="hero-tagline">内容运营 · 数据驱动 · 社群激活</div>
+            <div class="hero-stats">
+                <span class="stat-badge"><i class="fas fa-chart-line" style="color:#b280ff;"></i> 数据增幅 10x</span>
+                <span class="stat-badge"><i class="fas fa-users" style="color:#b280ff;"></i> 66w+ 规则阅读</span>
+                <span class="stat-badge"><i class="fas fa-star" style="color:#b280ff;"></i> Top 5% 创作者</span>
+            </div>
+        </section>
+
+        <!-- 工作经验 / 项目经历 (便当盒卡片) -->
+        <div class="section-title">
+            <i class="fas fa-briefcase"></i> 核心项目 · 工作经验
+        </div>
+        <div class="bento-grid">
+            <!-- 卡片 1: TechoMedia -->
+            <div class="bento-card">
+                <div class="card-icon"><i class="fas fa-newspaper"></i></div>
+                <div class="card-title">TechoMedia 科技社</div>
+                <div class="card-sub">副社长 · 内容策划</div>
+                <div class="card-desc">
+                    主导“Techofield”专栏，策划AI系列，阅读量达常规10倍，打造标杆产品。负责团队排期与终审，建立体系化内容流程。
+                </div>
+                <div class="card-stats">
+                    <div class="stat"><span class="stat-number">10x</span><div class="stat-label">阅读提升</div></div>
+                    <div class="stat"><span class="stat-number">900%+</span><div class="stat-label">增幅</div></div>
+                    <div class="stat"><span class="stat-number">标杆</span><div class="stat-label">社团核心</div></div>
+                </div>
+            </div>
+            <!-- 卡片 2: 粉丝社群与个站 -->
+            <div class="bento-card">
+                <div class="card-icon"><i class="fas fa-heart"></i></div>
+                <div class="card-title">粉丝个站 & 超话</div>
+                <div class="card-sub">核心文案 · 超话副主持</div>
+                <div class="card-desc">
+                    建立“晚安博”等栏目，均阅3-5w；独立撰写超话规则，获66.1w阅读并置顶；策划号召帖均阅6w+，评论600+，有效提升粉丝参与度。
+                </div>
+                <div class="card-stats">
+                    <div class="stat"><span class="stat-number">66.1w</span><div class="stat-label">规则阅读</div></div>
+                    <div class="stat"><span class="stat-number">3-5w</span><div class="stat-label">晚安博均阅</div></div>
+                    <div class="stat"><span class="stat-number">600+</span><div class="stat-label">号召帖评论</div></div>
+                </div>
+            </div>
+            <!-- 卡片 3: 自媒体运营 -->
+            <div class="bento-card">
+                <div class="card-icon"><i class="fas fa-video"></i></div>
+                <div class="card-title">小红书/B站 自媒体</div>
+                <div class="card-sub">独立创作者 · 双平台</div>
+                <div class="card-desc">
+                    热点24h出图+深度二创：《庆余年2》互动775+，阅读近万；B站最高3w+。账号观看/互动超92%/95%同类创作者。
+                </div>
+                <div class="card-stats">
+                    <div class="stat"><span class="stat-number">92%</span><div class="stat-label">观看超同类</div></div>
+                    <div class="stat"><span class="stat-number">95%</span><div class="stat-label">互动超同类</div></div>
+                    <div class="stat"><span class="stat-number">3w+</span><div class="stat-label">B站最高播</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 学历背景 + 实习 -->
+        <div class="section-title">
+            <i class="fas fa-graduation-cap"></i> 学历 & 研究经历
+        </div>
+        <div class="edu-card glass-card neon-border">
+            <div class="edu-left">
+                <h3>XX大学 · 理学方向</h3>
+                <div class="meta">2024年9月 – 今</div>
+                <div style="margin-top:1rem; color:#b0b0d0;">主修：分子生物学、微积分、化学、日语</div>
+                <div class="intern" style="margin-top:1.5rem;">
+                    <i class="fas fa-flask" style="color:#b280ff;"></i> 中科院分子植物科学卓越创新中心实习 (2023) · MATLAB数据分析
+                </div>
+            </div>
+            <div class="edu-right">
+                <span class="gpa">GPA 3.88</span>
+                <div style="font-size:0.9rem; color:#aaa;">/4.0 第一学期</div>
+            </div>
+        </div>
+
+        <!-- 个人能力 (技能标签) -->
+        <div class="section-title">
+            <i class="fas fa-cog"></i> 核心能力
+        </div>
+        <div class="skills-panel">
+            <span class="skill-tag"><i class="fas fa-chart-pie"></i> 数据驱动决策</span>
+            <span class="skill-tag"><i class="fas fa-pen-fancy"></i> 内容策划/二创</span>
+            <span class="skill-tag"><i class="fas fa-users-cog"></i> 社群运营/规则建设</span>
+            <span class="skill-tag"><i class="fas fa-code"></i> MATLAB 数据分析</span>
+            <span class="skill-tag"><i class="fas fa-video"></i> 剪映/Canva/排版</span>
+            <span class="skill-tag"><i class="fas fa-language"></i> 日语基础</span>
+            <span class="skill-tag"><i class="fas fa-file-excel"></i> Excel/飞书</span>
+            <span class="skill-tag"><i class="fas fa-mobile-alt"></i> 微信生态/微博</span>
+        </div>
+
+        <!-- 简短个人总结 (符合个人能力段落) -->
+        <div class="glass-card" style="padding: 2rem; margin: 3rem 0; border-radius: 36px;">
+            <i class="fas fa-quote-left" style="color:#b280ff; font-size:2rem; opacity:0.6;"></i>
+            <p style="font-size:1.3rem; max-width:900px; margin-top:1rem;">
+                我具备数据驱动的内容运营能力，善于从信息中提炼逻辑并用数据决策（社团专栏提升10倍流量）。拥有从热点追踪到深度策划的全流程经验（24h热点响应+系列二创）。擅长社群激活与规则构建（超话规则66w阅读，有效提升粉丝参与度）。凭借GPA 3.88的快速学习能力，将理科严谨思维与内容创意结合，形成跨界竞争力。
+            </p>
+        </div>
+
+        <!-- 联系+作品链接 -->
+        <div class="contact">
+            <div style="font-size:1.2rem; color:#a0a0c0;">📬 更多案例可联系</div>
+            <div class="contact-links">
+                <a href="#"><i class="fab fa-bilibili"></i></a>
+                <a href="#"><i class="fab fa-xiaohongshu" style="font-weight:bold;">📕</i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top:2rem; color:#666; font-size:0.9rem;">
+            © 2025 陈小欣 · 内容运营作品集
+        </div>
+    </main>
+
+    <script>
+        (function() {
+            // 简单的视差滚动效果：背景和星星缓慢移动
+            const bg = document.getElementById('parallaxBg');
+            const stars = document.getElementById('parallaxStars');
+            let lastScrollY = window.scrollY;
+
+            function updateParallax() {
+                const scrolled = window.scrollY;
+                // 背景移动速度慢一些
+                if (bg) {
+                    bg.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+                if (stars) {
+                    stars.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+                requestAnimationFrame(updateParallax);
+            }
+            // 使用requestAnimationFrame优化性能
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                if (bg) bg.style.transform = `translateY(${scrolled * 0.2}px)`;
+                if (stars) stars.style.transform = `translateY(${scrolled * 0.35}px)`;
+            }, { passive: true });
+
+            // 可选：卡片hover时轻微呼吸灯强化 (但已经在CSS里用animation)
+        })();
+    </script>
+
+    <!-- 确保所有图标显示正常，如果小红书图标显示为字母，可以保留 -->
+    <style>
+        /* 调整图标间距 */
+        .fa-xiaohongshu:before { content: "📕"; font-family: 'Apple Color Emoji', sans-serif; }
+    </style>
+</body>
+</html>
